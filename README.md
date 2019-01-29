@@ -19,4 +19,4 @@ How do I see it atm:
     2. A few fields to fill, like name of the game, desired items (maybe their prices, that will be parsed from backpack.tf, etc), number of played hours, __depth__ of search in friends list, etc.
     3. Proxy lists (TBD), because, as far as I know, Steam bans IP-addresses if it gets more than 10 queries in small period of time.
 * A page with results of searching and available actions, such as *add to friends*, open Steam profile and so on.
-* Maybe some additional page which I will think about during development. 
+* Maybe some additional page which I will think about during development.  
