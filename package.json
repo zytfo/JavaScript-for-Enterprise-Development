@@ -1,0 +1,36 @@
+{
+  "name": "steam_inventory_explorer",
+  "description": "This application is used to explore steam users' inventories using different parameters, such as a name of the game (e.g. Team Fortress 2, Dota 2, CS:GO, etc.), a number of played hours, a number of games in user's library and so on.",
+  "main": "./js/main.js",
+  "version": "1.0.0",
+  "scripts": {
+    "webpack": "webpack --progress",
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development",
+    "start:dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zytfo/JavaScript-for-Enterprise-Development.git"
+  },
+  "author": "Albert Sakhapov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zytfo/JavaScript-for-Enterprise-Development/issues"
+  },
+  "homepage": "https://github.com/zytfo/JavaScript-for-Enterprise-Development#readme",
+  "dependencies": {
+    "terser": "^3.14.1",
+    "webpack": "^4.29.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
+  }
+}
