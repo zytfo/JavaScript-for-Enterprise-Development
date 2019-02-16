@@ -30,7 +30,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html"
+      title: "Steam Inventory Explorer",
+      template: "src/index.html"
     })
   ]
 };
