@@ -1,7 +1,6 @@
 import Grid from '@material-ui/core/grid';
 import axios from 'axios';
 import React, { Fragment } from "react";
-import '../styles/app.css';
 
 import { ItemCard } from "./item-card"
 
