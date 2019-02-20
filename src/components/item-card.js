@@ -7,7 +7,7 @@ import React from 'react';
 import styles from '../styles/item-card.css';
 
 export const ItemCard = ({ item }) => (
-    <Grid item sm={6} md={4} lg={3}>
+    <Grid item sm={'6'} md={'4'} lg={'3'}>
         <Card className={styles.card}>
             <CardMedia
                 className={styles.media}

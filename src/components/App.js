@@ -1,11 +1,17 @@
+import ReactLoading from 'react-loading';
 import Grid from '@material-ui/core/grid';
 import axios from 'axios';
 import React, { Fragment } from "react";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 import { ItemCard } from "./item-card"
+import styles from '../styles/loading-screen.css';
+import appStyles from '../styles/app.css';
 
 export class App extends React.Component {
-    state = {}
+    state = {};
 
     componentDidMount() {
         axios
@@ -22,16 +28,25 @@ export class App extends React.Component {
 
     render() {
         if(!this.state.data) {
-            return <h1>Loading</h1>
+            return <div><ReactLoading className={styles.loading} type={"spokes"} color={"#fff"} height={'10%'} width={'10%'} /></div>
         }
-        var newData = Object.values(this.state.data);
+        let newData = Object.values(this.state.data);
         console.log(newData);
         return (
-                <Grid container spacing={16}>
+            <div>
+                <AppBar position="static" color="default" className={appStyles.appBar}>
+                    <Toolbar>
+                        <Typography variant="h6" color="inherit" noWrap className={appStyles.toolbarTitle}>
+                            Steam Inventory Explorer
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Grid container spacing={10}>
                     {newData.map(item =>
                         <ItemCard key={item} item={item} />
                     )}
                 </Grid>
+            </div>
         );
     }
 }
