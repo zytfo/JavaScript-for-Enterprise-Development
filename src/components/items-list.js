@@ -8,7 +8,7 @@ import styles from '../styles/loading-screen.css';
 export class ItemsList extends React.Component {
     state = {};
 
-    getQuery = (props) => props.location.pathname.replace('/profile/76561198167602704/items', '').replace('/profile/76561198167602704/', '')
+    getQuery = (props) => props.location.pathname.replace('/profile/'.concat(this.props.match.params.id).concat('/items'), '').replace('/profile/'.concat(this.props.match.params.id), '')
 
     componentDidMount() {
         // axios
@@ -21,25 +21,25 @@ export class ItemsList extends React.Component {
         //             data: response.data.rgDescriptions
         //         });
         //     })
-        this.loadItems(this.getQuery(this.props))
+        this.loadItems(this.getQuery(this.props));
     }
 
     loadItems = () => {
         this.setState({ error: void 0 })
-        axios.get(`https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/76561198167602704/inventory/json/440/2`)
+        axios.get('https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/'.concat(this.props.match.params.id).concat('/inventory/json/440/2'))
             .then(response => {
                 this.setState({ data: response.data.rgDescriptions })
             })
             .catch((err) => {
                 this.setState({
-                    error: 'No results from API'
+                    error: 'No results from API because of 429 (Too Many Requests)'
                 })
             })
-    }
+    };
 
     buildDetailsClickHandler = (item) => () => {
-        this.props.history.push(`/profile/76561198167602704/item/${item.classid}`)
-    }
+        this.props.history.push('/profile/'.concat(this.props.match.params.id).concat('/item/').concat(item.classid));
+    };
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.loadItems(this.getQuery(nextProps))
@@ -51,18 +51,17 @@ export class ItemsList extends React.Component {
         }
 
         if(!this.state.data) {
-            return <div><ReactLoading className={styles.loading} type={"spokes"} color={"#fff"} height={'10%'} width={'10%'} /></div>
+            return <div><ReactLoading className={styles.loading} type={"spokes"} color={"#1c2735"} height={'10%'} width={'10%'}/></div>
         }
-        let newData = Object.values(this.state.data);
-        console.log(newData);
+
         return (
             <div>
                 <Grid container spacing={8}>
-                    {newData.map(item =>
+                    {Object.entries(this.state.data).map(item =>
                         <ItemCard
-                            key={item}
-                            item={item}
-                            handleDetailsClick={this.buildDetailsClickHandler(item)}
+                            key={item[0]}
+                            item={item[1]}
+                            handleDetailsClick={this.buildDetailsClickHandler(item[1])}
                         />
                     )}
                 </Grid>

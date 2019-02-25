@@ -26,9 +26,9 @@ class ItemsAppBar extends React.Component {
                     <Typography variant="h6" color="inherit" noWrap className={style.title}>
                         Steam Inventory Explorer
                     </Typography>
-                    <Paper elevation={1} className={style.search}>
-                        <InputBase value={this.state.searchQuery} onChange={this.handleChange}/>
-                    </Paper>
+                    {/*<Paper elevation={1} className={style.search}>*/}
+                        {/*<InputBase value={this.state.searchQuery} onChange={this.handleChange}/>*/}
+                    {/*</Paper>*/}
                 </Toolbar>
             </AppBar>
         )

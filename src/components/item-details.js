@@ -10,6 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 
 import styles from "../styles/item-details.css"
+import ReactLoading from 'react-loading';
+import stylesLoading from '../styles/loading-screen.css';
 
 export class ItemDetails extends React.Component {
 
@@ -37,7 +39,7 @@ export class ItemDetails extends React.Component {
         const { item } = this.state
 
         if (!item) {
-            return <h3>Loading</h3>
+            return <div><ReactLoading className={stylesLoading.loading} type={"spokes"} color={"#1c2735"} height={'10%'} width={'10%'}/></div>
         }
         let items = Object.values(this.state.item);
         const thing = items.find(x => x.classid === this.state.id);
