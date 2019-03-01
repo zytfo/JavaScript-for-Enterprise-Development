@@ -5,9 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import styles from '../styles/item-card.css';
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
 
-export const ItemCard = ({ item }) => (
-    <Grid item sm={'6'} md={'4'} lg={'3'}>
+export const ItemCard = ({ item, handleDetailsClick }) => (
+    <Grid item sm={6} md={4} lg={3}>
         <Card className={styles.card}>
             <CardMedia
                 className={styles.media}
@@ -22,11 +24,11 @@ export const ItemCard = ({ item }) => (
                     Type: {item.type}
                 </Typography>
             </CardContent>
-            {/* <CardActions>
-                <Button size="small" color="primary">
+            <CardActions>
+                <Button size="small" color="primary" onClick={handleDetailsClick}>
                     <span className={'class'}>Details</span>
                 </Button>
-            </CardActions> */}
+            </CardActions>
         </Card>
     </Grid>
 )
