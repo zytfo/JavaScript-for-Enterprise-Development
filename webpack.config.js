@@ -1,5 +1,10 @@
-var path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
+
+const buildStubServer = require('./src/stub/server')
+
+const port = process.env.PORT || 9000
 
 module.exports = {
   mode: 'development',
@@ -13,9 +18,7 @@ module.exports = {
     compress: true,
     port: 9000,
     historyApiFallback: true,
-    before: (app) => {
-
-    }
+    before: buildStubServer
   },
   module: {
     rules: [
@@ -41,6 +44,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      BACKEND_URL: `"${process.env.BACKEND_URL}"`
+    }),
     new HtmlWebpackPlugin({
       title: "Steam Inventory Explorer",
       template: "src/index.html"
