@@ -32,7 +32,7 @@ export class SearchBar extends React.Component {
                 <Paper className={styles.root} elevation={1}>
                     <InputBase className={styles.input} value={this.state.id} placeholder="Search Steam Profile ID" onChange={this.updateInput} onKeyPress={event => {
                         if (event.key === 'Enter') {
-                            this.buildDetailsClickHandler();q
+                            this.buildDetailsClickHandler();
                         }
                     }}/>
                     <IconButton className={styles.iconButton} aria-label="Search" onClick={this.buildDetailsClickHandler}>
