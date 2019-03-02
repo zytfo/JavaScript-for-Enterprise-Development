@@ -7,6 +7,7 @@
     "webpack": "webpack --progress",
     "build": "webpack --mode production",
     "dev": "webpack-dev-server",
+    "server": "node ./src/server.js",
     "start:dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

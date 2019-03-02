@@ -8,7 +8,8 @@ import styles from '../styles/loading-screen.css';
 export class ItemsList extends React.Component {
     state = {};
 
-    getQuery = (props) => props.location.pathname.replace('/profile/'.concat(this.props.match.params.id).concat('/items'), '').replace('/profile/'.concat(this.props.match.params.id), '')
+    // getQuery = (props) => props.location.pathname.replace('/profile/'.concat(this.props.match.params.id).concat('/items'), '').replace('/profile/'.concat(this.props.match.params.id), '')
+    getQuery = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/items`, ``).replace(`/profile/${this.props.match.params.id}`, ``);
 
     componentDidMount() {
         // axios
@@ -25,8 +26,8 @@ export class ItemsList extends React.Component {
     }
 
     loadItems = () => {
-        this.setState({ error: void 0 })
-        axios.get('https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/'.concat(this.props.match.params.id).concat('/inventory/json/440/2'))
+        this.setState({ error: void 0 });
+        axios.get(`https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/${this.props.match.params.id}/inventory/json/440/2`)
             .then(response => {
                 this.setState({ data: response.data.rgDescriptions })
             })
@@ -38,7 +39,7 @@ export class ItemsList extends React.Component {
     };
 
     buildDetailsClickHandler = (item) => () => {
-        this.props.history.push('/profile/'.concat(this.props.match.params.id).concat('/item/').concat(item.classid));
+        this.props.history.push(`/profile/${this.props.match.params.id}/item/${item.classid}`);
     };
 
     componentWillReceiveProps(nextProps, nextContext) {

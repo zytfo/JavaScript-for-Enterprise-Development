@@ -18,7 +18,7 @@ export class ItemDetails extends React.Component {
     state = { item: void 0 }
 
     loadItemsDetails = (id, item_id) => {
-        fetch("https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/".concat(id).concat("/inventory/json/440/2/"))
+        fetch(`https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/${id}/inventory/json/440/2/`)
             .then(response => {
                 return response.json()
             })
@@ -50,7 +50,7 @@ export class ItemDetails extends React.Component {
                     <Card className={styles.card}>
                         <CardMedia
                             className={styles.media}
-                            image={"https://steamcommunity-a.akamaihd.net/economy/image/class/440/".concat(thing.classid).concat("/333fx171f.jpg")}
+                            image={`https://steamcommunity-a.akamaihd.net/economy/image/class/440/${thing.classid}/333fx171f.jpg`}
                             title="Avatar"
                         />
                         <CardContent>
