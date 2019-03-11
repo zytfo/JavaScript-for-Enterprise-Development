@@ -14,7 +14,7 @@ export class SearchBar extends React.Component {
     };
 
     buildDetailsClickHandler = () => {
-        this.props.history.push('/profile/'.concat(this.state.id).concat('/items/'));
+        this.props.history.push(`/profile/${this.state.id}/items/`);
     };
 
     updateInput = (event) => {
@@ -30,7 +30,11 @@ export class SearchBar extends React.Component {
                     Enter a valid Steam id (e.g. 76561198205886600). Otherwise it will never load.
                 </Typography>
                 <Paper className={styles.root} elevation={1}>
-                    <InputBase className={styles.input} value={this.state.id} placeholder="Search Steam Profile ID" onChange={this.updateInput}/>
+                    <InputBase className={styles.input} value={this.state.id} placeholder="Search Steam Profile ID" onChange={this.updateInput} onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                            this.buildDetailsClickHandler();
+                        }
+                    }}/>
                     <IconButton className={styles.iconButton} aria-label="Search" onClick={this.buildDetailsClickHandler}>
                         <SearchIcon />
                     </IconButton>

@@ -13,7 +13,7 @@ export const ItemCard = ({ item, handleDetailsClick }) => (
         <Card className={styles.card}>
             <CardMedia
                 className={styles.media}
-                image={"https://steamcommunity-a.akamaihd.net/economy/image/class/440/".concat(item.classid).concat("/333fx171f.jpg")}
+                image={`https://steamcommunity-a.akamaihd.net/economy/image/class/440/${item.classid}/333fx171f.jpg`}
                 title="Name"
             />
             <CardContent>
