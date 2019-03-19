@@ -25,7 +25,7 @@ export class ItemDetails extends React.Component {
             .then((data) => {
                 this.setState({ item: data.rgDescriptions, id: item_id })
             })
-    }
+    };
 
     componentDidMount() {
         if (this.props.match.params) {

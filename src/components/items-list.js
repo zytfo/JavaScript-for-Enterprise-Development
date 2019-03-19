@@ -1,14 +1,17 @@
 import ReactLoading from 'react-loading';
-import Grid from '@material-ui/core/grid';
 import axios from 'axios';
 import React from "react";
 import { ItemCard } from "./item-card"
 import styles from '../styles/loading-screen.css';
+import style from '../styles/item-list.css';
+import * as store from '../store';
+import { Grid } from './grid';
 
 export class ItemsList extends React.Component {
-    state = {};
+    state = {
+        data: store.getState()
+    };
 
-    // getQuery = (props) => props.location.pathname.replace('/profile/'.concat(this.props.match.params.id).concat('/items'), '').replace('/profile/'.concat(this.props.match.params.id), '')
     getQuery = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/items`, ``).replace(`/profile/${this.props.match.params.id}`, ``);
 
     componentDidMount() {
@@ -22,7 +25,10 @@ export class ItemsList extends React.Component {
         //             data: response.data.rgDescriptions
         //         });
         //     })
-        this.loadItems(this.getQuery(this.props));
+        // this.loadItems(this.getQuery(this.props));
+        if (this.state.data.length < 1) {
+            this.loadItems(this.getQuery(this.props))
+        }
     }
 
     loadItems = () => {
@@ -30,6 +36,8 @@ export class ItemsList extends React.Component {
         axios.get(`https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/${this.props.match.params.id}/inventory/json/440/2`)
             .then(response => {
                 this.setState({ data: response.data.rgDescriptions })
+                const action = store.itemsListLoaded(response.data.rgDescriptions)
+                store.dispatch(action)
             })
             .catch((err) => {
                 this.setState({
@@ -56,8 +64,9 @@ export class ItemsList extends React.Component {
         }
 
         return (
-            <div>
-                <Grid container spacing={8}>
+            <div className={style.body}>
+                <h3 className={style.title}>Now with <span className={style.rainbow}>flexbox</span></h3>
+                <Grid container>
                     {Object.entries(this.state.data).map(item =>
                         <ItemCard
                             key={item[0]}

@@ -6,20 +6,34 @@ import Typography from "@material-ui/core/Typography"
 import Toolbar from "@material-ui/core/Toolbar"
 import AppBar from "@material-ui/core/AppBar"
 import { withRouter } from "react-router-dom"
+import * as store from "../store"
+
+
 
 class ItemsAppBar extends React.Component {
-    state = {
-        searchQuery: this.props.location.pathname.replace('/items', '').replace('/', '')
+    constructor(props) {
+        super(props);
+        store.subscribe(this.reactToStoreUpdate)
     }
+
+    reactToStoreUpdate = (data) => {
+        this.setState({ data })
+    };
+
+    state = {
+        searchQuery: this.props.location.pathname.replace('/items', '').replace('/', ''),
+        data: []
+    };
 
     handleChange = (event) => {
         this.setState({
             searchQuery: event.target.value
-        })
+        });
         this.props.history.replace(`/items/${event.target.value}`)
-    }
+    };
 
     render() {
+        console.log('Rendered with state', this.state);
         return (
             <AppBar position="static">
                 <Toolbar className={style.toolbar}>
