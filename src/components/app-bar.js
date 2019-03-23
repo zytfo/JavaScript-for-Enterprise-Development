@@ -1,30 +1,13 @@
 import style from "../styles/app-bar.css"
 import React from "react"
-import Paper from "@material-ui/core/Paper"
-import InputBase from "@material-ui/core/InputBase"
 import Typography from "@material-ui/core/Typography"
 import Toolbar from "@material-ui/core/Toolbar"
 import AppBar from "@material-ui/core/AppBar"
 import { withRouter } from "react-router-dom"
-import * as store from "../store"
-
+import { connect } from 'react-redux'
 
 
 class ItemsAppBar extends React.Component {
-    constructor(props) {
-        super(props);
-        store.subscribe(this.reactToStoreUpdate)
-    }
-
-    reactToStoreUpdate = (data) => {
-        this.setState({ data })
-    };
-
-    state = {
-        searchQuery: this.props.location.pathname.replace('/items', '').replace('/', ''),
-        data: []
-    };
-
     handleChange = (event) => {
         this.setState({
             searchQuery: event.target.value
@@ -32,8 +15,11 @@ class ItemsAppBar extends React.Component {
         this.props.history.replace(`/items/${event.target.value}`)
     };
 
+    state = {
+        searchQuery: this.props.location.pathname.replace('/items', '').replace('/', '')
+    };
+
     render() {
-        console.log('Rendered with state', this.state);
         return (
             <AppBar position="static">
                 <Toolbar className={style.toolbar}>
@@ -49,4 +35,8 @@ class ItemsAppBar extends React.Component {
     }
 }
 
-export default withRouter(ItemsAppBar)
+const mapStateToProps = (state) => ({
+    operationsCountFromRedux: state.data.length
+});
+
+export default connect(mapStateToProps)(withRouter(ItemsAppBar))

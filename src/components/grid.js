@@ -6,7 +6,7 @@ import classnames from 'classnames'
 export const Grid = ({ direction, container, item, lg, sm, children }) => {
     if(container) {
 
-        const directionCls = styles[direction]
+        const directionCls = styles[direction];
 
         return (
             <div className={classnames(
@@ -18,8 +18,8 @@ export const Grid = ({ direction, container, item, lg, sm, children }) => {
         )
     }
 
-    const itemLgWidthStyle = styles[`item-lg-${lg}`]
-    const itemSmWidthStyle = styles[`item-sm-${sm}`]
+    const itemLgWidthStyle = styles[`item-lg-${lg}`];
+    const itemSmWidthStyle = styles[`item-sm-${sm}`];
 
 
     return (
