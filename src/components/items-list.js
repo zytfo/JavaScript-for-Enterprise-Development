@@ -4,7 +4,6 @@ import React from "react";
 import { ItemCard } from "./item-card"
 import styles from '../styles/loading-screen.css';
 import style from '../styles/item-list.css';
-import { store } from '../redux/store';
 import { Grid } from './grid';
 import * as actionCreators from "../redux/actionCreators";
 import { connect } from "react-redux"
@@ -12,10 +11,6 @@ import { connect } from "react-redux"
 
 
 class ItemsList extends React.Component {
-    state = {
-        data: store.getState()
-    };
-
     getQuery = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/items`, ``).replace(`/profile/${this.props.match.params.id}`, ``);
 
     componentDidMount() {
@@ -25,15 +20,11 @@ class ItemsList extends React.Component {
     }
 
     loadItems = () => {
-        this.setState({ error: void 0 });
         axios.get(`https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/${this.props.match.params.id}/inventory/json/440/2`)
             .then(response => {
                 this.props.itemsListLoaded(response.data.rgDescriptions);
             })
             .catch((err) => {
-                this.setState({
-                    error: 'No results from API because of 429 (Too Many Requests)'
-                });
                 this.props.itemsListLoadFailed();
             })
     };
@@ -41,12 +32,6 @@ class ItemsList extends React.Component {
     buildDetailsClickHandler = (item) => () => {
         this.props.history.push(`/profile/${this.props.match.params.id}/item/${item.classid}`);
     };
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        if(nextProps.location.pathname !== this.props.location.pathname) {
-            this.loadItems(this.getQuery(nextProps))
-        }
-    }
 
     render() {
         if(!this.props.data) {
@@ -58,7 +43,6 @@ class ItemsList extends React.Component {
 
         return (
             <div className={style.body}>
-                <h3 className={style.title}>Now with <span className={style.rainbow}>flexbox</span></h3>
                 <Grid container>
                     {Object.entries(this.props.data).map(item =>
                         <ItemCard
