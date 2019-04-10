@@ -1,12 +1,12 @@
 h1 {
-    text-align: center;
-    color: #111111;
+  text-align: center;
+  color: #111;
 }
 
 .appBar {
-    position: relative;
+  position: relative;
 }
 
 .toolbarTitle {
-    flex: 1;
+  flex: 1;
 }

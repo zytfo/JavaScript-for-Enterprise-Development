@@ -1,11 +1,11 @@
 .background {
-    background-color: #44749d;
+  background-color: #44749d;
 }
 
 .loading {
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -100px;
-    position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+  position: fixed;
 }
