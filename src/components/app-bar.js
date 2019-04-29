@@ -8,10 +8,6 @@ import { connect } from 'react-redux'
 
 
 class ItemsAppBar extends React.Component {
-    state = {
-        searchQuery: this.props.location.pathname.replace('/items', '').replace('/', '')
-    };
-
     render() {
         return (
             <AppBar position="static">
@@ -25,8 +21,4 @@ class ItemsAppBar extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    operationsCount: state.data.length
-});
-
-export default connect(mapStateToProps)(withRouter(ItemsAppBar))
+export default connect()(withRouter(ItemsAppBar))

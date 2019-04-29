@@ -13,7 +13,7 @@ export const reducer = (oldStore = initialState, action) => {
         }
     }
 
-    if(action.type === 'ITEMS_LIST_LOADED_FAILED') {
+    if (action.type === 'ITEMS_LIST_LOADED_FAILED') {
         return {
             data: [],
             itemsLoadingFailed: true
