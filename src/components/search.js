@@ -23,12 +23,11 @@ export class SearchBar extends React.Component {
     state = {
         id: "",
         anchorEl: null,
-        game: ""
+        gameid: gameId
     };
 
     buildDetailsClickHandler = () => {
-        // this.props.history.push(`/profile/${this.state.id}/${this.state.game}/items/`);
-        this.props.history.push(`/profile/${this.state.id}/items/`);
+        this.props.history.push(`/profile/${this.state.id}/${this.state.gameid}/items/`);
     };
 
     updateInput = (event) => {
@@ -55,9 +54,8 @@ export class SearchBar extends React.Component {
         }
         this.setState( {
             anchorEl: null,
-            game: gameId
+            gameid: gameId
         });
-        console.log(this.state.game);
     };
 
     render() {
@@ -96,7 +94,7 @@ export class SearchBar extends React.Component {
                         }}
                     >
                         {options.map(option => (
-                            <MenuItem key={option} selected={option === this.state.game} onClick={this.handleClose}>
+                            <MenuItem key={option} selected={option === this.state.gameid} onClick={this.handleClose}>
                                 {option}
                             </MenuItem>
                         ))}

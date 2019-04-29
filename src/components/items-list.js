@@ -8,21 +8,22 @@ import { connect } from "react-redux"
 import { loadItemsActionCreator } from "../redux/actionCreators/load-items"
 
 class ItemsList extends React.Component {
-    getQuery = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/items`, `${this.props.match.params.id}`).replace(`${this.props.match.params.id}/`, `${this.props.match.params.id}`);
+    getId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.id}`);
+    getGameId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.gameid}`);
 
     componentDidMount() {
         if (this.props.data.length < 1) {
-            this.props.loadItems(this.getQuery(this.props))
+            this.props.loadItems(this.getId(this.props), this.getGameId(this.props));
         }
     }
 
     buildDetailsClickHandler = (item) => () => {
-        this.props.history.push(`/profile/${this.props.match.params.id}/item/${item.classid}`);
+        this.props.history.push(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/${item.classid}`);
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
         if (nextProps.location.pathname !== this.props.location.pathname) {
-            this.props.loadItems(this.getQuery(nextProps))
+            this.props.loadItems(this.getId(nextProps), this.getGameId(nextProps))
         }
     }
 
@@ -56,7 +57,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loadItems: (query) => dispatch(loadItemsActionCreator(query))
+    loadItems: (id, gameid) => dispatch(loadItemsActionCreator(id, gameid))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsList)
