@@ -10,6 +10,8 @@ import { loadItemsActionCreator } from "../redux/actionCreators/load-items"
 class ItemsList extends React.Component {
     getId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.id}`);
     getGameId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.gameid}`);
+    getIdNextProps = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/104`, `${this.props.match.params.id}`);
+    getGameIdNextProps = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/104`, `${this.props.match.params.gameid}`);
 
     componentDidMount() {
         if (this.props.data.length < 1) {
@@ -23,7 +25,10 @@ class ItemsList extends React.Component {
 
     componentWillReceiveProps(nextProps, nextContext) {
         if (nextProps.location.pathname !== this.props.location.pathname) {
-            this.props.loadItems(this.getId(nextProps), this.getGameId(nextProps))
+            console.log(nextProps);
+            console.log(this.getIdNextProps(nextProps));
+            console.log(this.getGameIdNextProps(nextProps));
+            this.props.loadItems(this.getIdNextProps(nextProps), this.getGameIdNextProps(nextProps))
         }
     }
 
