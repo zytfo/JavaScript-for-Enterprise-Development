@@ -7,30 +7,31 @@ import { Grid } from './grid';
 import { connect } from "react-redux"
 import { loadItemsActionCreator } from "../redux/actionCreators/load-items"
 
+let storedItem;
+let currentProps = null;
+
 class ItemsList extends React.Component {
     getId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.id}`);
     getGameId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.gameid}`);
-    getIdNextProps = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/104`, `${this.props.match.params.id}`);
-    getGameIdNextProps = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/104`, `${this.props.match.params.gameid}`);
 
     componentDidMount() {
-        if (this.props.data.length < 1) {
+        if (currentProps === null) {
+            currentProps = this.props;
+            this.props.loadItems(this.getId(this.props), this.getGameId(this.props));
+        } else if (currentProps.location.pathname !== this.props.location.pathname) {
+            currentProps = this.props;
             this.props.loadItems(this.getId(this.props), this.getGameId(this.props));
         }
     }
 
     buildDetailsClickHandler = (item) => () => {
-        this.props.history.push(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/${item.classid}`);
+        storedItem = item;
+        this.props.match.params.classid = item.classid;
+        this.props.history.push(
+            `/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/${this.props.match.params.classid}`,
+            item
+        );
     };
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        if (nextProps.location.pathname !== this.props.location.pathname) {
-            console.log(nextProps);
-            console.log(this.getIdNextProps(nextProps));
-            console.log(this.getGameIdNextProps(nextProps));
-            this.props.loadItems(this.getIdNextProps(nextProps), this.getGameIdNextProps(nextProps))
-        }
-    }
 
     render() {
         if (!this.props.data) {

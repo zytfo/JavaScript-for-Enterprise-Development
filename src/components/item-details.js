@@ -12,38 +12,28 @@ import Grid from '@material-ui/core/Grid';
 import styles from "../styles/item-details.css"
 import ReactLoading from 'react-loading';
 import stylesLoading from '../styles/loading-screen.css';
+import {ItemCard} from "./item-card";
 
 export class ItemDetails extends React.Component {
 
     state = { item: void 0 };
 
-    loadItemsDetails = (id, gameid, item_id) => {
-        fetch(`https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/${id}/inventory/json/${gameid}/2/`)
-            .then(response => {
-                return response.json()
-            })
-            .then((data) => {
-                this.setState({ item: data.rgDescriptions, item_id: item_id, gameid: gameid })
-            })
-    };
-
     componentDidMount() {
         if (this.props.match.params) {
-            this.loadItemsDetails(this.props.match.params.id, this.props.match.params.gameid, this.props.match.params.item_id);
+            this.setState({
+                item: this.props.location.state,
+                classid: this.props.match.params.itemid,
+                gameid: this.props.match.params.gameid
+            })
         }
     }
 
 
     render() {
-
         const { item } = this.state;
-
         if (!item) {
             return <div><ReactLoading className={stylesLoading.loading} type={"spokes"} color={"#1c2735"} height={'10%'} width={'10%'}/></div>
         }
-        let items = Object.values(this.state.item);
-        const thing = items.find(x => x.classid === this.state.id);
-        const game = items.find(x => x.appid === this.state.gameid);
 
         return (
             <Grid container justify="center" alignItems="center">
@@ -51,38 +41,48 @@ export class ItemDetails extends React.Component {
                     <Card className={styles.card}>
                         <CardMedia
                             className={styles.media}
-                            image={`https://steamcommunity-a.akamaihd.net/economy/image/class/${game.appid}/${thing.classid}/333fx171f.jpg`}
+                            image={`https://steamcommunity-a.akamaihd.net/economy/image/class/${this.state.gameid}/${this.state.classid}/333fx171f.jpg`}
                             title="Avatar"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
-                                {thing.name}
+                                {item.name}
                             </Typography>
                             <Typography>
-                                Type: {thing.type}
+                                {item.type}
                             </Typography>
                             <hr/>
                             <Table className={''}>
                                 <TableBody>
                                     <TableRow>
                                         <TableCell component="th" scope="row">Name color</TableCell>
-                                        <TableCell align="right">{thing.name_color}</TableCell>
+                                        <TableCell align="right">{item.name_color}</TableCell>
                                     </TableRow>
 
                                     <TableRow>
                                         <TableCell component="th" scope="row">Tradability</TableCell>
-                                        <TableCell align="right">{thing.tradable}</TableCell>
+                                        <TableCell align="right">{item.tradable}</TableCell>
                                     </TableRow>
 
                                     <TableRow>
                                         <TableCell component="th" scope="row">Marketable</TableCell>
-                                        <TableCell align="right">{thing.marketable}</TableCell>
+                                        <TableCell align="right">{item.marketable}</TableCell>
                                     </TableRow>
 
                                     <TableRow>
-                                        <TableCell component="th" scope="row">Commodity</TableCell>
-                                        <TableCell align="right">{thing.commodity}</TableCell>
+                                        <TableCell component="th" scope="row">Descriptions</TableCell>
                                     </TableRow>
+
+                                    {Object.entries(item.descriptions).map(description =>
+                                        <TableRow
+                                                   key={description[0]}
+                                                   item={description[1]}>
+                                            <TableCell component="th" scope="row"></TableCell>
+                                            <TableCell align="right">
+                                                {description[1].value}
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
                                 </TableBody>
                             </Table>
                         </CardContent>

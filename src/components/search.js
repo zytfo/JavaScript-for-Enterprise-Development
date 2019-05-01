@@ -20,6 +20,7 @@ const ITEM_HEIGHT = 48;
 let gameId = 440;
 
 export class SearchBar extends React.Component {
+
     state = {
         id: "",
         anchorEl: null,

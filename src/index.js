@@ -18,8 +18,8 @@ ReactDOM.render(
                 <ItemsAppBar/>
                 <Switch>
                     <Route path="/search" component={SearchBar}/>
-                    <Route path="/profile/:id/:gameid/:items" component={ItemsList}/>
-                    <Route path="/profile/:id/:gameid/item/:item_id" component={ItemDetails}/>
+                    <Route path="/profile/:id/:gameid/items" component={ItemsList}/>
+                    <Route path="/profile/:id/:gameid/item/:itemid" component={ItemDetails}/>
                     <Redirect from="*" to="/search"/>
                 </Switch>
             </main>

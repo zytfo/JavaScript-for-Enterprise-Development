@@ -32,4 +32,4 @@ export const ItemCard = ({ item, handleDetailsClick }) => (
             </CardActions>
         </Card>
     </Grid>
-)
+);
