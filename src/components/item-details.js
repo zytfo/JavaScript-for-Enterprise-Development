@@ -13,10 +13,14 @@ import styles from "../styles/item-details.css"
 import ReactLoading from 'react-loading';
 import stylesLoading from '../styles/loading-screen.css';
 import {ItemCard} from "./item-card";
+import {loadItemsActionCreator} from "../redux/actionCreators/load-items";
+import {connect} from "react-redux";
+import axios from "axios";
+import * as actionCreators from "../redux/actionCreators";
 
 export class ItemDetails extends React.Component {
 
-    state = { item: void 0 };
+    state = { item: void 0, price: void 0};
 
     componentDidMount() {
         if (this.props.match.params) {
@@ -25,9 +29,19 @@ export class ItemDetails extends React.Component {
                 classid: this.props.match.params.itemid,
                 gameid: this.props.match.params.gameid
             })
+            this.loadPrice(this.props.match.params.gameid, this.props.location.state.market_hash_name);
         }
     }
 
+    loadPrice = (gameid, marketHashName) => {
+        axios.get(`https://cors-anywhere.herokuapp.com/https://steamcommunity.com/market/priceoverview/?appid=${gameid}&market_hash_name=${marketHashName}&currency=1`)
+            .then(response => {
+                this.setState({ price: response.data.median_price })
+            })
+            .catch((err) => {
+                error: 'Steam API is not available'
+            })
+    }
 
     render() {
         const { item } = this.state;
@@ -67,6 +81,11 @@ export class ItemDetails extends React.Component {
                                     <TableRow>
                                         <TableCell component="th" scope="row">Marketable</TableCell>
                                         <TableCell align="right">{item.marketable}</TableCell>
+                                    </TableRow>
+
+                                    <TableRow>
+                                        <TableCell component="th" scope="row">Price</TableCell>
+                                        <TableCell align="right">{this.state.price}</TableCell>
                                     </TableRow>
 
                                     <TableRow>

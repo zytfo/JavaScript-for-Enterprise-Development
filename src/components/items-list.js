@@ -9,12 +9,14 @@ import { loadItemsActionCreator } from "../redux/actionCreators/load-items"
 
 let storedItem;
 let currentProps = null;
+let isLoaded = false;
 
 class ItemsList extends React.Component {
     getId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.id}`);
     getGameId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.gameid}`);
 
     componentDidMount() {
+        isLoaded = false;
         if (currentProps === null) {
             currentProps = this.props;
             this.props.loadItems(this.getId(this.props), this.getGameId(this.props));
@@ -22,6 +24,7 @@ class ItemsList extends React.Component {
             currentProps = this.props;
             this.props.loadItems(this.getId(this.props), this.getGameId(this.props));
         }
+        isLoaded = true;
     }
 
     buildDetailsClickHandler = (item) => () => {
@@ -34,9 +37,10 @@ class ItemsList extends React.Component {
     };
 
     render() {
-        if (!this.props.data) {
+        if (isLoaded === false) {
             return <div><ReactLoading className={styles.loading} type={"spokes"} color={"#1c2735"} height={'10%'} width={'10%'}/></div>
         }
+
         if (this.props.loadFailed) {
             return <h3>Error loading data from API</h3>
         }

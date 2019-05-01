@@ -4,5 +4,5 @@ export const itemsListLoaded = (data) => ({
 });
 
 export const itemsListLoadFailed = () => ({
-    type: 'ITEMS_LIST_LOADED_FAILED'
+    type: 'ITEMS_LIST_LOAD_FAILED'
 });
