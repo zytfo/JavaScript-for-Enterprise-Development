@@ -2,9 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require("webpack");
 
-const buildStubServer = require('./src/stub/server')
+const buildStubServer = require('./src/stub/server');
 
-const port = process.env.PORT || 9000
+const port = process.env.PORT || 9000;
 
 module.exports = {
   mode: 'development',
@@ -17,7 +17,8 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: port,
+    before: buildStubServer,
     historyApiFallback: true,
   },
   module: {
