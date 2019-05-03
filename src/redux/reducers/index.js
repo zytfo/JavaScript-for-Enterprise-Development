@@ -30,7 +30,12 @@ export const reducer = (oldStore = initialState, action) => {
     }
 
     if (action.type === 'PRICE_LOADED') {
-        console.log('lololol', action);
+        let price = action.price.replace("$", "");
+        let priceFloat = parseFloat(price);
+        priceFloat *= 65.12;
+        action.price = priceFloat.toFixed(2);
+        action.price += ' рубля (-ей)';
+
         return {
             data: [],
             price: action.price,

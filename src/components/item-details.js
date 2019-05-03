@@ -82,7 +82,6 @@ export class ItemDetails extends React.Component {
                                                 this.props.priceLoadFailed ? <TableCell align="right">Price loading is unavailable</TableCell>:
                                                 <TableCell align="right">{this.props.price}</TableCell>
                                         }
-
                                     </TableRow>
 
                                     <TableRow>
