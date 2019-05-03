@@ -10,6 +10,7 @@ export const reducer = (oldStore = initialState, action) => {
 
     console.log('Reducer called with action', action);
     if (action.type === 'ITEMS_LIST_LOADED') {
+        initialState.data = action.data;
         return {
             data: action.data,
             price: void 0,
@@ -37,7 +38,7 @@ export const reducer = (oldStore = initialState, action) => {
         action.price += ' рубля (-ей)';
 
         return {
-            data: [],
+            data: initialState.data,
             price: action.price,
             itemsLoadingFailed: false,
             priceIsLoading: false,
@@ -47,7 +48,7 @@ export const reducer = (oldStore = initialState, action) => {
 
     if (action.type === 'PRICE_LOAD_FAILED') {
         return {
-            data: [],
+            data: initialState.data,
             price: void 0,
             itemsLoadingFailed: false,
             priceIsLoading: false,
@@ -57,7 +58,7 @@ export const reducer = (oldStore = initialState, action) => {
 
     if (action.type === 'PRICE_LOADING') {
         return {
-            data: [],
+            data: initialState.data,
             price: void 0,
             itemsLoadingFailed: false,
             priceIsLoading: true,
