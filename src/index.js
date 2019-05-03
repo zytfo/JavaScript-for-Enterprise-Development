@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import ItemsList from "./components/items-list"
-import { ItemDetails } from "./components/item-details"
+import ItemDetails from "./components/item-details"
 import { SearchBar } from "./components/search"
 import ItemsAppBar from "./components/app-bar";
 import { store } from "./redux/store";

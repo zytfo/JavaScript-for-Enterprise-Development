@@ -10,3 +10,16 @@ export const loadItemsActionCreator = (id, gameid) => (dispatch) => {
             dispatch(actionCreators.itemsListLoadFailed())
         })
 };
+
+export const loadPriceActionCreator = (gameid, marketHashName) => (dispatch) => {
+
+    dispatch(actionCreators.priceLoading());
+
+    axios.get(`https://cors-anywhere.herokuapp.com/https://steamcommunity.com/market/priceoverview/?appid=${gameid}&market_hash_name=${marketHashName}&currency=1`)
+        .then(response => {
+            dispatch(actionCreators.priceLoaded(response.data.median_price))
+        })
+        .catch((err) => {
+            dispatch(actionCreators.priceLoadFailed())
+        })
+};

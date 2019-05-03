@@ -11,14 +11,14 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'index_bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    publicPath: '/',
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
     historyApiFallback: true,
-    before: buildStubServer
   },
   module: {
     rules: [

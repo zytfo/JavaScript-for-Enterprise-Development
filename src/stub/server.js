@@ -6,7 +6,7 @@ const port = process.env.PORT;
 
 module.exports = (app) => {
     app.get('/api/items/', (request, response) => {
-        if (port === '1234') {
+        if (port === '9001') {
             fs.readFile(
                 path.resolve(__dirname, '76561198205886600.json'),
                 { encoding: 'utf8' },
