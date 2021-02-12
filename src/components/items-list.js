@@ -1,42 +1,46 @@
 import ReactLoading from 'react-loading';
-import axios from 'axios';
 import React from "react";
 import { ItemCard } from "./item-card"
 import styles from '../styles/loading-screen.css';
 import style from '../styles/item-list.css';
 import { Grid } from './grid';
-import * as actionCreators from "../redux/actionCreators";
 import { connect } from "react-redux"
+import { loadItemsActionCreator } from "../redux/actionCreators/load-items"
 
-
+let storedItem;
+let currentProps = null;
+let isLoaded = false;
 
 class ItemsList extends React.Component {
-    getQuery = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/items`, ``).replace(`/profile/${this.props.match.params.id}`, ``);
+    getId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.id}`);
+    getGameId = (props) => props.location.pathname.replace(`/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/items/`, `${this.props.match.params.gameid}`);
 
     componentDidMount() {
-        if (this.props.data.length < 1) {
-            this.loadItems(this.getQuery(this.props))
+        isLoaded = false;
+        if (currentProps === null) {
+            currentProps = this.props;
+            this.props.loadItems(this.getId(this.props), this.getGameId(this.props));
+        } else if (currentProps.location.pathname !== this.props.location.pathname) {
+            currentProps = this.props;
+            this.props.loadItems(this.getId(this.props), this.getGameId(this.props));
         }
+        isLoaded = true;
     }
 
-    loadItems = () => {
-        axios.get(`https://cors-anywhere.herokuapp.com/http://steamcommunity.com/profiles/${this.props.match.params.id}/inventory/json/440/2`)
-            .then(response => {
-                this.props.itemsListLoaded(response.data.rgDescriptions);
-            })
-            .catch((err) => {
-                this.props.itemsListLoadFailed();
-            })
-    };
-
     buildDetailsClickHandler = (item) => () => {
-        this.props.history.push(`/profile/${this.props.match.params.id}/item/${item.classid}`);
+        storedItem = item;
+        this.props.match.params.classid = item.classid;
+        this.props.history.push(
+            `/profile/${this.props.match.params.id}/${this.props.match.params.gameid}/item/${this.props.match.params.classid}`,
+            item
+        );
     };
 
     render() {
-        if(!this.props.data) {
+        if (isLoaded === false) {
             return <div><ReactLoading className={styles.loading} type={"spokes"} color={"#1c2735"} height={'10%'} width={'10%'}/></div>
         }
+
         if (this.props.loadFailed) {
             return <h3>Error loading data from API</h3>
         }
@@ -63,12 +67,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    itemsListLoaded: (data) => {
-        dispatch(actionCreators.itemsListLoaded(data))
-    },
-    itemsListLoadFailed: () => {
-        dispatch(actionCreators.itemsListLoadFailed())
-    }
+    loadItems: (id, gameid) => dispatch(loadItemsActionCreator(id, gameid))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsList)

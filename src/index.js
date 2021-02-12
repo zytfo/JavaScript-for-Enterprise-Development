@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import ItemsList from "./components/items-list"
-import { ItemDetails } from "./components/item-details"
+import ItemDetails from "./components/item-details"
 import { SearchBar } from "./components/search"
 import ItemsAppBar from "./components/app-bar";
 import { store } from "./redux/store";
@@ -18,8 +18,8 @@ ReactDOM.render(
                 <ItemsAppBar/>
                 <Switch>
                     <Route path="/search" component={SearchBar}/>
-                    <Route path="/profile/:id/items" component={ItemsList}/>
-                    <Route path="/profile/:id/item/:item_id" component={ItemDetails}/>
+                    <Route path="/profile/:id/:gameid/items" component={ItemsList}/>
+                    <Route path="/profile/:id/:gameid/item/:itemid" component={ItemDetails}/>
                     <Redirect from="*" to="/search"/>
                 </Switch>
             </main>

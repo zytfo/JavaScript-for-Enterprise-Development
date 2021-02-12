@@ -7,10 +7,11 @@
     "webpack": "webpack --progress",
     "dev": "webpack-dev-server",
     "server": "node ./src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:stub": "cross-env PORT=1234 BACKEND_URL=/ npm run dev",
-    "dev:api": "cross-env PORT=1235 BACKEND_URL=https://cors-anywhere.herokuapp.com/http://steamcommunity.com/ npm run dev",
+    "dev:stub": "cross-env PORT=9001 BACKEND_URL=/ npm run dev",
+    "dev:api": "cross-env PORT=9000 BACKEND_URL=https://cors-anywhere.herokuapp.com/http://steamcommunity.com/ npm run dev",
     "lint": "eslint 'src/**/*.js'",
+    "test": "jest",
+    "test:update": "jest -u",
     "stylelint": "stylelint 'src/**/*.css' --fix",
     "prod": "webpack --mode production"
   },
@@ -31,12 +32,13 @@
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "express": "^4.16.4",
+    "identity-obj-proxy": "^3.0.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "react-loading": "^2.0.3",
+    "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
-    "react-redux": "^6.0.1",
-    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "webpack": "^4.29.0"
   },
   "husky": {
@@ -44,14 +46,24 @@
       "pre-commit": "npm run stylelint"
     }
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.css$": "identity-obj-proxy"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "@types/jest": "^24.0.11",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "24.7.1",
     "babel-loader": "^8.0.2",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
+    "moxios": "^0.4.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^5.15.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-babel": "^5.3.0",
@@ -60,8 +72,12 @@
     "eslint-plugin-react": "^7.12.4",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.3.1",
+    "jest": "24.6.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
+    "react-test-renderer": "^16.8.6",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-mock-store": "^1.5.3",
     "style-loader": "^0.23.1",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",

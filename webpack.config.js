@@ -2,23 +2,24 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require("webpack");
 
-const buildStubServer = require('./src/stub/server')
+const buildStubServer = require('./src/stub/server');
 
-const port = process.env.PORT || 9000
+const port = process.env.PORT || 9000;
 
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
     filename: 'index_bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    publicPath: '/',
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: port,
+    before: buildStubServer,
     historyApiFallback: true,
-    before: buildStubServer
   },
   module: {
     rules: [

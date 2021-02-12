@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grid renders as container 1`] = `
+"<Grid item={true} sm={6} md={4} lg={3} direction=\\"row\\">
+  <WithStyles(Card) className=\\"card\\">
+    <WithStyles(CardMedia) className=\\"media\\" image=\\"https://steamcommunity-a.akamaihd.net/economy/image/class/undefined/undefined/333fx171f.jpg\\" title=\\"Name\\" />
+    <WithStyles(CardContent)>
+      <WithStyles(Typography) gutterBottom={true} variant=\\"h5\\" component=\\"h2\\" />
+      <WithStyles(Typography)>
+        Type: 
+      </WithStyles(Typography)>
+    </WithStyles(CardContent)>
+    <WithStyles(CardActions)>
+      <WithStyles(Button) size=\\"small\\" color=\\"primary\\" onClick={[Function: handleDetailsClick]}>
+        <span className=\\"class\\">
+          Details
+        </span>
+      </WithStyles(Button)>
+    </WithStyles(CardActions)>
+  </WithStyles(Card)>
+</Grid>"
+`;
